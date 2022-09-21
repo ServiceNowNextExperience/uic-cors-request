@@ -4,30 +4,29 @@ import styles from "./styles.scss";
 
 const view = (state, { dispatch, updateState, updateProperties }) => {
 	const { url, httpMethod, requestState } = state.properties;
-	console.log("URL: " + url);
-	//	debugger;
+	if (requestState != "idle") {
+		console.log("URL: " + url);
+		debugger;
 
-	if (!url) {
-		dispatch("UIC_CORS#COMPLETE", null);
+		if (!url) {
+			dispatch("UIC_CORS#COMPLETE", null);
+		} else if (requestState != "fetching") {
+			updateProperties({ requestState: "fetching" });
+			fetch(url)
+				.then((res) => {
+					return res.json();
+				})
+				.then(
+					(result) => {
+						console.log(result);
+						dispatch("UIC_CORS#COMPLETE", result);
+					},
+					(error) => {
+						dispatch("UIC_CORS#ERROR", error);
+					}
+				);
+		}
 		updateProperties({ requestState: "idle" });
-	} else if (requestState != "fetching") {
-		updateProperties({ requestState: "fetching" });
-		fetch(url)
-			.then((res) => {
-				updateProperties({ requestState: "fetched" });
-				return res.json();
-			})
-			.then(
-				(result) => {
-					updateProperties({ requestState: "idle" });
-					console.log(result);
-					dispatch("UIC_CORS#COMPLETE", result);
-				},
-				(error) => {
-					updateProperties({ requestState: "error" });
-					dispatch("UIC_CORS#ERROR", error);
-				}
-			);
 	}
 
 	return (
@@ -76,13 +75,13 @@ createCustomElement("snc-uic-cors-test", {
 		 */
 		httpMethod: { required: true, schema: { type: "string" }, default: "GET" },
 		/**
-		 * The current state of the CORS request. Used to force an update.
+		 * The current state of the CORS request. Used to force an update if the value is anything other than "idle".
 		 * @type {string}
 		 */
 		requestState: {
 			required: true,
 			schema: { type: "string" },
-			default: "ready",
+			default: "",
 		},
 	},
 });
