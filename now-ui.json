@@ -1,0 +1,105 @@
+{
+	"components": {
+		"snc-uic-cors-test": {
+			"innerComponents": [],
+			"uiBuilder": {
+				"associatedTypes": [
+					"global.core",
+					"global.landing-page"
+				],
+				"label": "CORS Test Component",
+				"icon": "document-outline",
+				"description": "Test showing how to make CORS calls from within a custom component.",
+				"category": "primitives"
+			},
+			"properties": [
+				{
+					"name": "url",
+					"label": "URL",
+					"required": true,
+					"description": "The URL to make the CORS request to",
+					"fieldType": "string",
+					"defaultValue": "https://api.github.com",
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				{
+					"name": "httpMethod",
+					"label": "Http Method",
+					"required": true,
+					"description": "Http Method for request, e.g. GET, POST, PATCH",
+					"fieldType": "string",
+					"defaultValue": "GET",
+					"typeMetadata": {
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				{
+					"name": "refresh",
+					"label": "Refresh",
+					"required": true,
+					"description": "Set to true to force a refresh of the data",
+					"fieldType": "boolean",
+					"defaultValue": true,
+					"typeMetadata": {
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				}
+			],
+			"actions": [
+				{
+					"action": "UIC_CORS#COMPLETE",
+					"label": "Request Complete",
+					"description": "Dispatched when CORS request is completed",
+					"payload": [
+						{
+							"name": "response",
+							"label": "CORS request response",
+							"fieldType": "string",
+							"typeMetadata": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					]
+				},
+				{
+					"action": "UIC_CORS#ERROR",
+					"label": "Request Errored",
+					"description": "Dispatched when CORS request fails",
+					"payload": [
+						{
+							"name": "code",
+							"label": "Response Code",
+							"fieldType": "string",
+							"typeMetadata": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						},
+						{
+							"name": "response",
+							"label": "CORS request response",
+							"fieldType": "string",
+							"typeMetadata": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	"scopeName": "x_snc_uic_cors"
+}
