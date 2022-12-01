@@ -10,6 +10,7 @@ NOTE: This is just an example.  Be careful when modifying the security of your a
 2. Fork this repo and pull it locally.
 3. Make sure that you're connected to your instance with a SN CLI profile and authenticated using "snc ui-component login {instance_url} basic {user_name} {password}".
 4. Run "npm install" to load all of the NPM packages. (Again, you may need to refer to the article above to make sure that you have component dev running locally).
-5. Finally, run "snc ui-component deploy --force" to deploy the component to your instance.
-6. Open a UIB Page and drag and drop the UIC Cors Request component onto the screen.
-7. Use this as inspiration as you dig in and figure out how it all works!
+5. Run the component locally using "snc ui-component develop --open"
+7. To install it into your instance run "snc ui-component deploy --force".
+8. Open a UIB Page and drag and drop the UIC Cors Request component onto the screen.
+9. Use this as inspiration as you dig in and figure out how it all works!
